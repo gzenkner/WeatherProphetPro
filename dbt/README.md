@@ -1,1 +1,0 @@
-# dbt_weather_training_transformations
