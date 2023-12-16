@@ -1,12 +1,19 @@
 import requests
 
-# url = 'http://localhost:5000/predict'
-url = 'http://34.39.7.168:5000/predict'
-data = {'data': [[0.35108238, 0.5109495, 0.7714737, 1.21949638, 1.602388,
-                  1.97541129, 2.11554173, 2.23396182, 2.28527719, 2.3405399,
-                  2.17672544, 2.23988282, 1.96159561, 2.06027902, 1.90238556,
-                  1.56094097, 1.43265254, 1.28068009, 1.16028633, 0.98660353,
-                  0.79713139, 0.40634509, 0.49318649, 0.15963656]]}
 
+location_index = int(input('Enter 0 for temp_clerkenwell and 1 temp_hadley_wood: '))
+prediction_length = int(input('Input prediction length in hours (e.g., 24 or 72): '))
+
+url = 'http://localhost:5000/predict'
+data = {'location_index': location_index, 'prediction_length': prediction_length}
 response = requests.post(url, json=data)
-print(response.json())
+if response.status_code == 200:
+    try:
+        # Try to parse JSON response
+        result = response.json()
+        print(result)
+    except requests.exceptions.JSONDecodeError:
+        print("Error decoding JSON. Response may be empty or not in JSON format.")
+else:
+    print(f"Request failed with status code {response.status_code}")
+    print(response.text)  
