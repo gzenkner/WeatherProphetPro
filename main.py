@@ -1,16 +1,15 @@
 from flask import Flask, request, jsonify
-import tensorflow as tf
 import joblib
 from keras.models import load_model
-from tensorflow import keras
 from helper_functions import get_data, generate_pred_dict
+from tensorflow import keras
 
 
 features = ['temp_clerkenwell', 'pressure_clerkenwell', 'humidity_clerkenwell']
-scaler = joblib.load('WeatherProphetPro\scaler_model.pkl')
+scaler = joblib.load('scaler_model.pkl')
 context_hours = 24*3
 # prediction_length = 24
-model = load_model("WeatherProphetPro\your_model.h5")  
+model = load_model("your_model.h5")  
 
 app = Flask(__name__)
 

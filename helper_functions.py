@@ -26,6 +26,7 @@ def get_data(scaler, features, context_hours):
     pivot_table.columns.name = None  # Remove the name from the columns
     pivot_table.columns = ['dt', 'temp_clerkenwell', 'temp_hadley_wood', 'pressure_clerkenwell', 'pressure_hadley_wood', 'humidity_clerkenwell', 'humidity_hadley_wood']
     pivot_table.fillna(method='ffill', inplace=True)
+    pivot_table.fillna(method='bfill', inplace=True)
     df_scaled = pd.DataFrame(scaler.transform(pivot_table[features]))
     df_scaled.columns = pivot_table[features].columns
 
